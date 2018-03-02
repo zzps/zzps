@@ -12,6 +12,7 @@ const (
 	applicationConfigFile = "application.json"
 	defaultAddress        = "0.0.0.0:8080"
 	defaultProtocol       = "http"
+	defaultUrlSuffix      = ".zson"
 )
 
 type applicationConfig struct {
@@ -19,6 +20,7 @@ type applicationConfig struct {
 	Protocol string `json:"protocol"`
 	TlsCertFile string `json:"tlsCertFile"`
 	TlsKeyFile string `json:"tlsKeyFile"`
+	UrlSuffix string
 }
 
 var ApplicationConfig  = newApplicationConfig()
@@ -27,6 +29,7 @@ func newApplicationConfig() *applicationConfig {
 	appConfig := new(applicationConfig)
 	appConfig.Address = defaultAddress
 	appConfig.Protocol = defaultProtocol
+	appConfig.UrlSuffix = defaultUrlSuffix
 	var applicationFileName = applicationConfigDir + applicationConfigFile
 	var err error
 	os.MkdirAll(applicationConfigDir,0660)
@@ -62,6 +65,9 @@ func newApplicationConfig() *applicationConfig {
 func replaceApplicationConfigDefaultPropertyUseCustom(defaultConfig, customConfig *applicationConfig) *applicationConfig {
 	if customConfig.Address != "" {
 		defaultConfig.Address = customConfig.Address
+	}
+	if customConfig.UrlSuffix != "" {
+		defaultConfig.UrlSuffix = customConfig.UrlSuffix
 	}
 	return defaultConfig
 }

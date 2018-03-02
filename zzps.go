@@ -1,10 +1,13 @@
 package zzps
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 const (
 	version = "1.0.0"
-	banner = "z web framework" + version + "  URL --------n"
+	banner = "zzps web framework" + version + " URL: https://github.com/zzps/zzps"
 )
 
 type zzps struct {
@@ -18,7 +21,17 @@ func Build() {
 	z.application = newApplication()
 }
 func AddMapping(url string, handler func(*Context)error)  {
-	z.application.Handler.(*ZRouter).addMapping(url,handler)
+	var b bool
+	router := z.application.Handler.(*zRouter)
+	b = strings.HasPrefix(url, "/")
+	if !b {
+		url = "/"+url
+	}
+	b = strings.HasSuffix(url, router.urlSuffix)
+	if !b {
+		url = strings.Split(url,".")[0] + router.urlSuffix
+	}
+	z.application.Handler.(*zRouter).addMapping(url,handler)
 }
 func init()  {
 	fmt.Println(banner[1:])

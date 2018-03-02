@@ -21,8 +21,8 @@ type application struct {
 //
 func newApplication() *application {
 	application := new(application)
-	application.Handler = newZRouter()
 	application.applicationConfig = ApplicationConfig
+	application.Handler = newZRouter()
 	application.server = &http.Server{
 		Handler : application.Handler,
 		Addr :  application.applicationConfig.Address,
@@ -32,7 +32,7 @@ func newApplication() *application {
 	logs.StartZLogger()
 	return application
 }
-//运行
+//run the application
 func (application *application)run() {
 	application.serve()
 }
