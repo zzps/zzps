@@ -20,9 +20,9 @@ type zRouter struct {
 }
 //
 type mappingEntity struct {
-	function func(*Context)error
+	function func(*Context)
 }
-type HandlerFunc func(*Context)error
+type HandlerFunc func(*Context)
 func newZRouter() *zRouter {
 	router := new(zRouter)
 	router.mapping = make(map[string]mappingEntity,256)
@@ -44,7 +44,7 @@ func newZRouter() *zRouter {
 	return router
 }
 //add mapping to router
-func (router *zRouter) addMapping(url string,handler func(*Context)error) bool {
+func (router *zRouter) addMapping(url string,handler func(*Context)) bool {
 	if _,ok := router.mapping[url];ok{
 		logs.ZLogger.Warn("the url:{} is exist,addMapping failure",url)
 		return false

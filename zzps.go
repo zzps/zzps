@@ -20,7 +20,7 @@ func Run() {
 func Build() {
 	z.application = newApplication()
 }
-func AddMapping(url string, handler func(*Context)error)  {
+func AddMapping(url string, handler func(*Context))  {
 	var b bool
 	router := z.application.Handler.(*zRouter)
 	b = strings.HasPrefix(url, "/")
