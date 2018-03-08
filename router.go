@@ -62,7 +62,6 @@ func (router *zRouter)ServeHTTP(rw http.ResponseWriter, r *http.Request)  {
 	context.Reset(rw,r)
 	defer router.contextPool.Put(context)
 	urlPath := r.URL.Path
-
 	if router.enableStaticSupport {
 		if strings.HasPrefix(urlPath,router.staticUrlPrefix){
 			filePath := router.staticDir + strings.TrimPrefix(urlPath,router.staticUrlPrefix)
