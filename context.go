@@ -15,6 +15,7 @@ func newContext() *Context {
 	return new(Context)
 }
 func (context *Context) Reset(rw http.ResponseWriter, r *http.Request)  {
+	r.ParseForm()
 	context.Request = r
 	context.Response = rw
 }
