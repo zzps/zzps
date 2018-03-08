@@ -3,7 +3,6 @@ package zzps
 import (
 	"net/http"
 	"sync"
-	"fmt"
 	"zzps/logs"
 	"strings"
 	"strconv"
@@ -77,8 +76,7 @@ func (router *zRouter)ServeHTTP(rw http.ResponseWriter, r *http.Request)  {
 	if value,ok := router.mapping[urlPath];ok {
 		value.function(context)
 	}else {
-		fmt.Println("404")
-		//不存在请求方法返回404
+		rw.Write(ResponseEntity{Status:Fail,Message:"404"}.ToJson())
 	}
 }
 
